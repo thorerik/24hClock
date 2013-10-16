@@ -11,7 +11,7 @@
 PBL_APP_INFO(MY_UUID,
              "24H Analog",
              "Thor Erik Lie",
-             1, 0, /* App version */
+             1, 1, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
@@ -156,7 +156,7 @@ void pbl_main(void* params) {
     .init_handler = &handle_init,
     .tick_info = {
       .tick_handler = &handle_second_tick,
-      .tick_units = SECOND_UNIT
+      .tick_units = MINUTE_UNIT
     }
   };
   app_event_loop(params, &handlers);
