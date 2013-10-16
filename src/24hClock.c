@@ -7,10 +7,10 @@
 #include "string.h"
 #include "stdlib.h"
 
-#define MY_UUID { 0x59, 0xCA, 0xC8, 0x06, 0x44, 0x70, 0x4D, 0xA8, 0x91, 0x21, 0x00, 0xBE, 0x8C, 0x17, 0x8B, 0xE7 }
+#define MY_UUID { 0x59, 0xCA, 0xC8, 0x06, 0x44, 0x70, 0x4D, 0xA8, 0x91, 0x21, 0x00, 0xBE, 0x8C, 0x17, 0x8B, 0xE8 }
 PBL_APP_INFO(MY_UUID,
-             "My Simple Analog",
-             "Pebble Technology",
+             "24H Analog",
+             "Thor Erik Lie",
              1, 0, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
@@ -66,7 +66,7 @@ static void hands_update_proc(Layer* me, GContext* ctx) {
   gpath_draw_filled(ctx, &s_data.minute_arrow);
   gpath_draw_outline(ctx, &s_data.minute_arrow);
 
-  gpath_rotate_to(&s_data.hour_arrow, (TRIG_MAX_ANGLE * (((t.tm_hour % 12) * 6) + (t.tm_min / 10))) / (12 * 6));
+  gpath_rotate_to(&s_data.hour_arrow, (TRIG_MAX_ANGLE * (((t.tm_hour % 24) * 6) + (t.tm_min / 10))) / (24 * 6));
   gpath_draw_filled(ctx, &s_data.hour_arrow);
   gpath_draw_outline(ctx, &s_data.hour_arrow);
 
@@ -88,7 +88,7 @@ static void date_update_proc(Layer* me, GContext* ctx) {
 }
 
 static void handle_init(AppContextRef app_ctx) {
-  window_init(&s_data.window, "Simple Analog Watch");
+  window_init(&s_data.window, "24H analog");
 
   s_data.day_buffer[0] = '\0';
   s_data.num_buffer[0] = '\0';
