@@ -11,7 +11,7 @@
 PBL_APP_INFO(MY_UUID,
              "24H Analog",
              "Thor Erik Lie",
-             1, 1, /* App version */
+             1, 2, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
@@ -19,8 +19,6 @@ static struct SimpleAnalogData {
   Layer simple_bg_layer;
 
   Layer date_layer;
-  TextLayer day_label;
-  char day_buffer[6];
   TextLayer num_label;
   char num_buffer[4];
 
@@ -42,21 +40,8 @@ static void bg_update_proc(Layer* me, GContext* ctx) {
 }
 
 static void hands_update_proc(Layer* me, GContext* ctx) {
-  //const GPoint center = grect_center_point(&me->bounds);
-  //const int16_t secondHandLength = me->bounds.size.w / 2;
-
-  //GPoint secondHand;
-
   PblTm t;
   get_time(&t);
-
-  //int32_t second_angle = TRIG_MAX_ANGLE * t.tm_sec / 60;
-  //secondHand.y = (int16_t)(-cos_lookup(second_angle) * (int32_t)secondHandLength / TRIG_MAX_RATIO) + center.y;
-  //secondHand.x = (int16_t)(sin_lookup(second_angle) * (int32_t)secondHandLength / TRIG_MAX_RATIO) + center.x;
-
-  // second hand
-  //graphics_context_set_stroke_color(ctx, GColorWhite);
-  //graphics_draw_line(ctx, secondHand, center);
 
   // minute/hour hand
   graphics_context_set_fill_color(ctx, GColorWhite);
@@ -80,9 +65,6 @@ static void date_update_proc(Layer* me, GContext* ctx) {
   PblTm t;
   get_time(&t);
 
-  string_format_time(s_data.day_buffer, sizeof(s_data.day_buffer), "%a", &t);
-  text_layer_set_text(&s_data.day_label, s_data.day_buffer);
-
   string_format_time(s_data.num_buffer, sizeof(s_data.num_buffer), "%d", &t);
   text_layer_set_text(&s_data.num_label, s_data.num_buffer);
 }
@@ -90,7 +72,6 @@ static void date_update_proc(Layer* me, GContext* ctx) {
 static void handle_init(AppContextRef app_ctx) {
   window_init(&s_data.window, "24H analog");
 
-  s_data.day_buffer[0] = '\0';
   s_data.num_buffer[0] = '\0';
 
   // init hand paths
@@ -116,18 +97,8 @@ static void handle_init(AppContextRef app_ctx) {
   s_data.date_layer.update_proc = &date_update_proc;
   layer_add_child(&s_data.window.layer, &s_data.date_layer);
 
-  // init day
-  text_layer_init(&s_data.day_label, GRect(46, 114, 27, 20));
-  text_layer_set_text(&s_data.day_label, s_data.day_buffer);
-  text_layer_set_background_color(&s_data.day_label, GColorBlack);
-  text_layer_set_text_color(&s_data.day_label, GColorWhite);
-  GFont norm18 = fonts_get_system_font(FONT_KEY_GOTHIC_18);
-  text_layer_set_font(&s_data.day_label, norm18);
-
-  layer_add_child(&s_data.date_layer, &s_data.day_label.layer);
-
   // init num
-  text_layer_init(&s_data.num_label, GRect(73, 114, 18, 20));
+  text_layer_init(&s_data.num_label, GRect(107, 73, 18, 20));
 
   text_layer_set_text(&s_data.num_label, s_data.num_buffer);
   text_layer_set_background_color(&s_data.num_label, GColorBlack);
