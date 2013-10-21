@@ -1,11 +1,12 @@
 
-{"friendlyVersion": "VERSION",
- "versionDefName": "VERSION",
+{"friendlyVersion": "0.1",
+ "versionDefName": "HCLOCK_RESOURCES",
+
  "media": [
 	   {
-	    "type":"raw",
-	    "defName":"DUMMY",
-	    "file":"resource_map.json"
+	    "type":"font",
+	    "defName":"FONT_BINARY_18",
+	    "file":"font/UMP.ttf"
 	   }
 	  ]
 }

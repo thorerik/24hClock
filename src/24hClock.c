@@ -11,7 +11,7 @@
 PBL_APP_INFO(MY_UUID,
              "24H Analog",
              "Thor Erik Lie",
-             1, 2, /* App version */
+             1, 3, /* App version */
              DEFAULT_MENU_ICON,
              APP_INFO_WATCH_FACE);
 
@@ -71,6 +71,8 @@ static void date_update_proc(Layer* me, GContext* ctx) {
 
 static void handle_init(AppContextRef app_ctx) {
   window_init(&s_data.window, "24H analog");
+  
+  resource_init_current_app(&HCLOCK_RESOURCES);
 
   s_data.num_buffer[0] = '\0';
 
@@ -103,7 +105,9 @@ static void handle_init(AppContextRef app_ctx) {
   text_layer_set_text(&s_data.num_label, s_data.num_buffer);
   text_layer_set_background_color(&s_data.num_label, GColorBlack);
   text_layer_set_text_color(&s_data.num_label, GColorWhite);
-  GFont bold18 = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+  
+  GFont bold18 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_BINARY_18));
+  
   text_layer_set_font(&s_data.num_label, bold18);
 
   layer_add_child(&s_data.date_layer, &s_data.num_label.layer);
