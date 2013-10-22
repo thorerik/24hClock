@@ -106,7 +106,7 @@ static void handle_init(AppContextRef app_ctx) {
   text_layer_set_background_color(&s_data.num_label, GColorBlack);
   text_layer_set_text_color(&s_data.num_label, GColorWhite);
   
-  GFont bold18 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_BINARY_18));
+  GFont bold18 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_UBUNTU_MONO_18));
   
   text_layer_set_font(&s_data.num_label, bold18);
 

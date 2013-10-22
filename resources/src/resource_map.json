@@ -5,7 +5,7 @@
  "media": [
 	   {
 	    "type":"font",
-	    "defName":"FONT_BINARY_18",
+	    "defName":"FONT_UBUNTU_MONO_18",
 	    "file":"font/UMP.ttf"
 	   }
 	  ]
